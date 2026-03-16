@@ -1,5 +1,20 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbw4qrlX0s4LnEDiRWDRsP9R8DZa1ZIOcOl-lxCm_ZAivVKl8dEbCCQ-0Zr1_SdDqIkxYQ/exec"
 
+function showToast(message, duration=2000){
+
+const toast=document.getElementById("toast")
+
+toast.textContent=message
+toast.classList.add("show")
+
+clearTimeout(toast.hideTimeout)
+
+toast.hideTimeout=setTimeout(()=>{
+toast.classList.remove("show")
+},duration)
+
+}
+
 function showPage(id){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
@@ -427,6 +442,8 @@ filename: filename
 
 }
 
+showToast("Saving trip…", 10000)
+
 await fetch(API_URL,{
 method:"POST",
 body:JSON.stringify(trip)
@@ -434,8 +451,7 @@ body:JSON.stringify(trip)
 
 await loadTripsFromServer()
 
-// success message
-alert("Trip saved successfully")
+showToast("✓ Trip saved",2000)
 
 // reset form
 document.getElementById("route").value=""
