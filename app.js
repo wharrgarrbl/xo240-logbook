@@ -394,43 +394,27 @@ renderTrips()
 }
 function postToAppsScript(payload){
 
-const iframe = document.getElementById("hiddenFrame")
+const form = document.createElement("form")
+form.method = "POST"
+form.action = API_URL
+form.target = "hiddenFrame"
 
-return new Promise((resolve)=>{
-
-let resolved=false
-
-function done(){
-if(resolved) return
-resolved=true
-resolve()
-}
-
-// resolve when iframe finishes loading
-iframe.onload = done
-
-// fallback in case onload doesn't fire
-setTimeout(done,1500)
-
-const form=document.createElement("form")
-form.method="POST"
-form.action=API_URL
-form.target="hiddenFrame"
-
-const input=document.createElement("input")
-input.type="hidden"
-input.name="payload"
-input.value=JSON.stringify(payload)
+const input = document.createElement("input")
+input.type = "hidden"
+input.name = "payload"
+input.value = JSON.stringify(payload)
 
 form.appendChild(input)
+
 document.body.appendChild(form)
 
 form.submit()
+
 form.remove()
 
-})
-
 }
+
+
 
 async function saveTrip(){
 
@@ -476,13 +460,9 @@ filename:filename
 
 }
 
-await fetch(API_URL,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(trip)
-})
+postToAppsScript(trip)
+
+setTimeout(async ()=>{
 
 await loadTripsFromServer()
 
@@ -499,6 +479,8 @@ document.getElementById("photo").value=""
 setDefaultLogValues()
 
 showPage("trips")
+
+},1500)
 
 }
 
