@@ -217,25 +217,41 @@ trips = []
 }
 
 function viewTrip(i){
-  const trips = JSON.parse(localStorage.getItem("trips")||"[]");
-  const t = trips[i];
-  const c = document.getElementById("tripDetailContent");
-  if(!c) return;
 
-  c.innerHTML = `
-    <p><strong>Date:</strong> ${t.date}</p>
-    <p><strong>Departure:</strong> ${t.departure}</p>
-    <p><strong>Arrival:</strong> ${t.arrival}</p>
-    <p><strong>Captain:</strong> ${t.captain}</p>
-    <p><strong>Participants:</strong> ${t.participants}</p>
-    <p><strong>Route:</strong> ${t.route}</p>
-    <p><strong>Miles:</strong> ${t.miles}</p>
-    <p><strong>Fuel:</strong> ${t.fuel}</p>
-    <p><strong>Engine start:</strong> ${t.engineStart}</p>
-    <p><strong>Engine end:</strong> ${t.engineEnd}</p>
-  `;
+const trips = JSON.parse(localStorage.getItem("trips")||"[]")
+const t = trips[i]
 
-  showPage("tripDetail");
+const c = document.getElementById("tripDetailContent")
+if(!c) return
+
+let photoHtml=""
+
+if(t.photo){
+
+// convert dropbox path → public preview link
+const url =
+"https://dl.dropboxusercontent.com" + t.photo
+
+photoHtml = `<img src="${url}" style="width:100%;margin-top:10px;">`
+
+}
+
+c.innerHTML = `
+<p><strong>Date:</strong> ${t.date}</p>
+<p><strong>Departure:</strong> ${t.departure}</p>
+<p><strong>Arrival:</strong> ${t.arrival}</p>
+<p><strong>Captain:</strong> ${t.captain}</p>
+<p><strong>Participants:</strong> ${t.participants}</p>
+<p><strong>Route:</strong> ${t.route}</p>
+<p><strong>Miles:</strong> ${t.miles}</p>
+<p><strong>Fuel:</strong> ${t.fuel}</p>
+<p><strong>Engine start:</strong> ${t.engineStart}</p>
+<p><strong>Engine end:</strong> ${t.engineEnd}</p>
+${photoHtml}
+`
+
+showPage("tripDetail")
+
 }
 
 function editTrip(i){
@@ -418,6 +434,21 @@ body:JSON.stringify(trip)
 
 await loadTripsFromServer()
 
+// success message
+alert("Trip saved successfully")
+
+// reset form
+document.getElementById("route").value=""
+document.getElementById("participants").value=""
+document.getElementById("miles").value=""
+document.getElementById("fuel").value=""
+document.getElementById("arrival").value=""
+document.getElementById("engineEnd").value=""
+
+// clear photo
+document.getElementById("photo").value=""
+
+// reset defaults
 setDefaultLogValues()
 
 showPage("trips")
