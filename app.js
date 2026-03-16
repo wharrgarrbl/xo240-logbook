@@ -405,12 +405,12 @@ input.name = "payload"
 input.value = JSON.stringify(payload)
 
 form.appendChild(input)
-
 document.body.appendChild(form)
 
 form.submit()
 
-form.remove()
+// remove form shortly after submitting
+setTimeout(()=>form.remove(),500)
 
 }
 
@@ -462,6 +462,7 @@ filename:filename
 
 postToAppsScript(trip)
 
+// wait briefly for Apps Script to finish
 setTimeout(async ()=>{
 
 await loadTripsFromServer()
@@ -480,7 +481,7 @@ setDefaultLogValues()
 
 showPage("trips")
 
-},1500)
+},2000)
 
 }
 
