@@ -442,26 +442,26 @@ now.getMinutes() +
 
 const trip = {
 
-date: document.getElementById("date").value,
-departure: document.getElementById("departure").value,
-arrival: document.getElementById("arrival").value,
+date:document.getElementById("date").value,
+departure:document.getElementById("departure").value,
+arrival:document.getElementById("arrival").value,
 
-captain: document.getElementById("captain").value,
-participants: document.getElementById("participants").value,
+captain:document.getElementById("captain").value,
+participants:document.getElementById("participants").value,
 
-route: document.getElementById("route").value,
-miles: document.getElementById("miles").value,
-fuel: document.getElementById("fuel").value,
+route:document.getElementById("route").value,
+miles:document.getElementById("miles").value,
+fuel:document.getElementById("fuel").value,
 
-engineStart: document.getElementById("engineStart").value,
-engineEnd: document.getElementById("engineEnd").value,
+engineStart:document.getElementById("engineStart").value,
+engineEnd:document.getElementById("engineEnd").value,
 
-photo: base64Photo,
-filename: filename
+photo:base64Photo,
+filename:filename
 
 }
 
-try {
+try{
 
 await fetch(API_URL,{
 method:"POST",
@@ -475,7 +475,6 @@ await loadTripsFromServer()
 
 showToast("✓ Trip saved")
 
-// reset fields
 document.getElementById("route").value=""
 document.getElementById("participants").value=""
 document.getElementById("miles").value=""
@@ -488,7 +487,7 @@ setDefaultLogValues()
 
 showPage("trips")
 
-} catch(err){
+}catch(err){
 
 console.error(err)
 showToast("Error saving trip")
@@ -496,7 +495,6 @@ showToast("Error saving trip")
 }
 
 }
-
 
 function compressImage(file,maxWidth=1200,quality=0.7){
 
