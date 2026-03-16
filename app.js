@@ -177,18 +177,6 @@ let editingTripIndex = null;
 
 async function saveTrip(){
 
-const file = document.getElementById("photo").files[0]
-
-let photoURL = ""
-
-if(file){
-
-const dropboxResult = await uploadToDropbox(file)
-
-photoURL = dropboxResult.path_display
-
-}
-
 const trip = {
 
 type:"trip",
@@ -205,18 +193,13 @@ miles:document.getElementById("miles").value,
 fuel:document.getElementById("fuel").value,
 
 engineStart:document.getElementById("engineStart").value,
-engineEnd:document.getElementById("engineEnd").value,
-
-photo:photoURL
+engineEnd:document.getElementById("engineEnd").value
 
 }
 
-await fetch(API_URL, {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify(trip)
+await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(trip)
 })
 
 }
