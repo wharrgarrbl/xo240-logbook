@@ -448,7 +448,7 @@ showToast("Saving trip…", 10000)
 await fetch(API_URL, {
   method: "POST",
   body: new URLSearchParams({
-    data: JSON.stringify(trip)
+    payload: JSON.stringify(trip)
   })
 })
 showToast("✓ Trip saved",2000)
