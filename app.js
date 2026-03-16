@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyjhcGwEtfcaxsjEsKDzdrkgawQyrQEKe2X_irf1XOegByBJtEqlyTJer3nfSWLHc0wUw/exec"
+const API_URL = "https://skibidi.jaan-rohtla.workers.dev/"
 
 function showToast(message, duration=2000){
 
@@ -419,26 +419,81 @@ async function saveTrip(){
 
 showToast("Saving trip…")
 
-const trip = {
-date:document.getElementById("date").value,
-departure:document.getElementById("departure").value,
-arrival:document.getElementById("arrival").value,
-captain:document.getElementById("captain").value,
-participants:document.getElementById("participants").value,
-route:document.getElementById("route").value,
-miles:document.getElementById("miles").value,
-fuel:document.getElementById("fuel").value,
-engineStart:document.getElementById("engineStart").value,
-engineEnd:document.getElementById("engineEnd").value
+let base64Photo = ""
+let filename = ""
+
+const file = document.getElementById("photo")?.files[0]
+
+if(file){
+
+base64Photo = await compressImage(file)
+
+const now = new Date()
+
+filename =
+now.toISOString().split("T")[0] +
+"_trip_" +
+now.getHours() +
+"-" +
+now.getMinutes() +
+".jpg"
+
 }
 
-postToAppsScript(trip)
+const trip = {
 
-setTimeout(async ()=>{
+date: document.getElementById("date").value,
+departure: document.getElementById("departure").value,
+arrival: document.getElementById("arrival").value,
+
+captain: document.getElementById("captain").value,
+participants: document.getElementById("participants").value,
+
+route: document.getElementById("route").value,
+miles: document.getElementById("miles").value,
+fuel: document.getElementById("fuel").value,
+
+engineStart: document.getElementById("engineStart").value,
+engineEnd: document.getElementById("engineEnd").value,
+
+photo: base64Photo,
+filename: filename
+
+}
+
+try {
+
+await fetch(API_URL,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(trip)
+})
+
 await loadTripsFromServer()
+
 showToast("✓ Trip saved")
+
+// reset fields
+document.getElementById("route").value=""
+document.getElementById("participants").value=""
+document.getElementById("miles").value=""
+document.getElementById("fuel").value=""
+document.getElementById("arrival").value=""
+document.getElementById("engineEnd").value=""
+document.getElementById("photo").value=""
+
+setDefaultLogValues()
+
 showPage("trips")
-},1500)
+
+} catch(err){
+
+console.error(err)
+showToast("Error saving trip")
+
+}
 
 }
 
