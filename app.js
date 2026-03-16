@@ -211,7 +211,11 @@ function renderTrips(){
   if(!list) return;
 
   const filter = document.getElementById("tripFilterDate")?.value;
-  const trips = JSON.parse(localStorage.getItem("trips")||"[]");
+  let trips = JSON.parse(localStorage.getItem("trips") || "[]")
+
+if(!Array.isArray(trips)){
+trips = []
+}
 
   list.innerHTML = "";
 
@@ -376,12 +380,26 @@ return response.json()
 
 async function loadTripsFromServer(){
 
+try{
+
 const response = await fetch(API_URL)
 
-const trips = await response.json()
+const data = await response.json()
+
+const trips = Array.isArray(data) ? data : []
 
 localStorage.setItem("trips", JSON.stringify(trips))
 
 renderTrips()
+
+}catch(error){
+
+console.error("Failed to load trips", error)
+
+localStorage.setItem("trips", JSON.stringify([]))
+
+renderTrips()
+
+}
 
 }
