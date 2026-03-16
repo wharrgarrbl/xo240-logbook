@@ -473,7 +473,8 @@ async function saveTrip() {
         Object.keys(trip).forEach(key => {
             formData.append(key, trip[key])
         })
-
+        formData.append("photo", base64Photo)
+        formData.append("filename", filename)
         await fetch(API_URL, {
             method: "POST",
             body: formData
