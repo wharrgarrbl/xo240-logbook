@@ -1,4 +1,4 @@
-const API_URL = "https://skibidi.jaan-rohtla.workers.dev/"
+const API_URL = "https://script.google.com/macros/s/AKfycbyjhcGwEtfcaxsjEsKDzdrkgawQyrQEKe2X_irf1XOegByBJtEqlyTJer3nfSWLHc0wUw/exec"
 
 function showToast(message, duration=2000){
 
@@ -464,11 +464,9 @@ filename:filename
 try{
 
 await fetch(API_URL,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(trip)
+  method:"POST",
+  body:JSON.stringify(trip),
+  mode:"no-cors"
 })
 
 await loadTripsFromServer()
