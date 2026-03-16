@@ -360,3 +360,66 @@ renderTrips()
 }
 
 }
+
+async function saveTrip(){
+
+const file = document.getElementById("photo").files[0]
+
+let base64Photo = ""
+let filename = ""
+
+if(file){
+
+base64Photo = await new Promise(resolve=>{
+fileToBase64(file,result=>{
+resolve(result.split(",")[1])
+})
+})
+
+const now = new Date()
+
+filename =
+now.toISOString().split("T")[0] +
+"_trip_" +
+now.getHours() +
+"-" +
+now.getMinutes() +
+".jpg"
+
+}
+
+const trip = {
+
+type:"trip",
+
+date:document.getElementById("date").value,
+departure:document.getElementById("departure").value,
+arrival:document.getElementById("arrival").value,
+
+captain:document.getElementById("captain").value,
+participants:document.getElementById("participants").value,
+
+route:document.getElementById("route").value,
+miles:document.getElementById("miles").value,
+fuel:document.getElementById("fuel").value,
+
+engineStart:document.getElementById("engineStart").value,
+engineEnd:document.getElementById("engineEnd").value,
+
+photo: base64Photo,
+filename: filename
+
+}
+
+await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(trip)
+})
+
+await loadTripsFromServer()
+
+setDefaultLogValues()
+
+showPage("trips")
+
+}
