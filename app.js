@@ -344,10 +344,14 @@ function deleteInvoice(i){
 
 // ===== INIT =====
 window.addEventListener("DOMContentLoaded", ()=>{
-  setDefaultLogValues();
-  renderTrips();
-  renderInvoices();
-});
+
+setDefaultLogValues()
+
+loadTripsFromServer()
+
+renderInvoices()
+
+})
 async function uploadToDropbox(file){
 
 const response = await fetch(
@@ -367,5 +371,17 @@ body:file
 })
 
 return response.json()
+
+}
+
+async function loadTripsFromServer(){
+
+const response = await fetch(API_URL)
+
+const trips = await response.json()
+
+localStorage.setItem("trips", JSON.stringify(trips))
+
+renderTrips()
 
 }
