@@ -392,6 +392,24 @@ renderTrips()
 }
 
 }
+function postToAppsScript(payload){
+
+const form = document.createElement("form")
+form.method = "POST"
+form.action = API_URL
+
+const input = document.createElement("input")
+input.type = "hidden"
+input.name = "payload"
+input.value = JSON.stringify(payload)
+
+form.appendChild(input)
+
+document.body.appendChild(form)
+
+form.submit()
+
+}
 
 async function saveTrip(){
 
@@ -445,12 +463,7 @@ filename: filename
 
 showToast("Saving trip…", 10000)
 
-await fetch(API_URL, {
-  method: "POST",
-  body: new URLSearchParams({
-    payload: JSON.stringify(trip)
-  })
-})
+postToAppsScript(trip)
 showToast("✓ Trip saved",2000)
 await loadTripsFromServer()
 
