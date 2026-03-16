@@ -175,33 +175,10 @@ function setDefaultLogValues(){
 // ===== TRIPS =====
 let editingTripIndex = null;
 
-async function saveTrip(){
+let trips = JSON.parse(localStorage.getItem("trips") || "[]")
 
-const trip = {
-
-type:"trip",
-
-date:document.getElementById("date").value,
-departure:document.getElementById("departure").value,
-arrival:document.getElementById("arrival").value,
-
-captain:document.getElementById("captain").value,
-participants:document.getElementById("participants").value,
-
-route:document.getElementById("route").value,
-miles:document.getElementById("miles").value,
-fuel:document.getElementById("fuel").value,
-
-engineStart:document.getElementById("engineStart").value,
-engineEnd:document.getElementById("engineEnd").value
-
-}
-
-await fetch(API_URL,{
-method:"POST",
-body:JSON.stringify(trip)
-})
-
+if(!Array.isArray(trips)){
+trips = []
 }
 
 
