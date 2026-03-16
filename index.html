@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XO240 Logbook</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>XO240 Logbook</h1>
+<button id="themeToggle">Theme</button>
+</header>
+
+<main>
+
+<section class="page active" id="log">
+
+<h2>Log outing</h2>
+
+<label>Date</label>
+<input id="date" type="date">
+
+<div class="grid">
+<div>
+<label>Departure</label>
+<input id="departure" type="time">
+</div>
+<div>
+<label>Arrival</label>
+<input id="arrival" type="time">
+</div>
+</div>
+
+<label>Captain</label>
+<select id="captain">
+<option>Jaan</option>
+<option>Juhan</option>
+</select>
+
+<label>Participants</label>
+<textarea id="participants"></textarea>
+
+<label>Route / Area</label>
+<input id="route">
+
+<div class="grid">
+<div>
+<label>Miles</label>
+<input id="miles" type="number">
+</div>
+<div>
+<label>Fuel</label>
+<input id="fuel" type="number">
+</div>
+</div>
+
+<div class="grid">
+<div>
+<label>Engine hours (departure)</label>
+<input id="engineStart" type="number" step="0.1">
+</div>
+<div>
+<label>Engine hours (arrival)</label>
+<input id="engineEnd" type="number" step="0.1">
+</div>
+</div>
+
+<label>Trip photo</label>
+<input id="photo" type="file" accept="image/*" capture="environment">
+
+<button onclick="saveTrip()">Save outing</button>
+
+</section>
+
+
+<section class="page" id="trips">
+
+<h2>Outings</h2>
+
+<label>Filter by date</label>
+<input id="tripFilterDate" type="date" onchange="renderTrips()">
+
+<div id="tripList"></div>
+
+</section>
+
+
+<section class="page" id="tripDetail">
+<h2>Trip details</h2>
+<div id="tripDetailContent"></div>
+<button onclick="showPage('trips')">Back</button>
+</section>
+
+
+<section class="page" id="invoices">
+
+<h2>Invoices</h2>
+
+<input id="invoiceDesc" placeholder="Description">
+<input id="invoiceAmount" type="number" placeholder="Amount">
+
+<label>Invoice photo</label>
+<input id="invoicePhoto" type="file" accept="image/*" capture="environment">
+
+<button onclick="addInvoice()">Add invoice</button>
+
+<div id="invoiceList"></div>
+
+</section>
+
+
+<section class="page" id="notes">
+
+<h2>Notes</h2>
+
+<button onclick="toggleNoteForm()">New note</button>
+
+<div id="noteForm" style="display:none">
+
+<textarea id="noteText" placeholder="Add note"></textarea>
+
+<label>Attach photo</label>
+<input id="notePhoto" type="file" accept="image/*" capture="environment">
+
+<button onclick="getLocation()">Attach GPS location</button>
+
+<div id="locationDisplay"></div>
+
+<button onclick="addNote()">Save note</button>
+
+</div>
+
+<div id="notesList"></div>
+
+</section>
+
+
+<section class="page" id="noteDetail">
+
+<h2>Note</h2>
+
+<div id="noteDetailContent"></div>
+
+<button onclick="showPage('notes')">Back</button>
+
+</section>
+
+
+</main>
+
+
+<nav>
+<button onclick="showPage('log')">Log</button>
+<button onclick="showPage('trips')">Trips</button>
+<button onclick="showPage('invoices')">Invoices</button>
+<button onclick="showPage('notes')">Notes</button>
+</nav>
+
+<script src="app.js"></script>
+
+</body>
+</html>
