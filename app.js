@@ -333,27 +333,7 @@ loadTripsFromServer()
 renderInvoices()
 
 })
-async function uploadToDropbox(file){
 
-const response = await fetch(
-"https://content.dropboxapi.com/2/files/upload",
-{
-method:"POST",
-headers:{
-"Authorization":"Bearer sl.u.AGVjU0RWIS4tGKCH3PSx3DKH6uL3S8glBJhxpvXnByy8JIrPkNKPLsKMiADR68NW88Yrsu2G-UPJy1MtJbHgnDW5Y8AUJEeVJqI6eqShQXkO4-JjUT15foBcPi34XphnipoVS8VPhvi1S6NQzzoTrT8PFt_617xmudMwJ0FIPtxguULfkN9WD-NnGK_wdaEOYPuRkUjWMIy6hCtt7CEiNIXaJSXRQ0apwgvDtHTGQ4XimZPtBqBiWBs5Cny9DS_q6wqkbLQQz1KeH4tMnoYdCo4yYuyRdPFVoz-m-OWi81o3K2Y1b3Fjas1H1w-J2S1ybTgIq3h700sAyIfJgIm6Lj5231OiYRH7ld4rG3qcdSCjYr9XGBvy-0cwESlVLd8PvKNalOfJ2UhFuynwc6hwY6A65tnVu8jyTUQKMVCOoRM7W2E4x84s_WNj32LOilh6R01aUI_KFQov9IrstRkcRPgXFgEmdDyo_26snERgd50Su11D63pnEoBQqghQdXtrwPd1FoxKWiN1RD0tHvpuny19l2cMbw2RMNehvjthjbe4aHBsBOtCs0ZbJRPFdFNAXqJodge-Kzl1cchJONYkR-1gWQ6WmI7uRv7RxpFTWiB-yYMnCzp56l87eb8JzoTMev_0WXJ9JksSiVc7NQ8yteMUzNEBpf-06AVHgGvJdwxF8h2HknOZjIi1BqYUK2jNk_D6OQyg1sgG_1crJiNvbG9bIM_F1QxeJpu1qHNEd1JQNoiE5dcwzKQJSqx1bc2ziq0lLW8ncGFD17itbTMVCfIkITuuNAKXKY6ewmUKgGpexDQ8vh59dKH49p66WgdYcQnZaOJQyEiFmdJwD4fwFrHdYcsZ84kHN0yyg1QNQHVH6kMqqVla_qp3nJ4MP5PcMXQpcxdvj2IiUI4w7pyZlns0J_d6RC0X9yYS19drxR9XqtqIIdrve369p4c0GdOt41m4K-KgRYFFKc9SMS08bU76NnVUB1_0_5FSVji6uzKqdXQXBg0D-qOsmHem1lAwDVRmamwCnr_v-K-8l8f89FIsI_pQ5nS-KNqdV_H_81dnkShR3trSSS-tAQLoNXQpcpULqsivBFM1NyN1dLvg2PR_gMCXzw8d7_BqzPoCq7q6HnlTnLYmm1y-tarVoqH9_7WTGb08dVvD5XpIbntYTSIfHvn_hNyJ9IWce6vm0mPkAcPdpibI9klAEryvVVzERp1vlqSkcP34eO3urDCcHm8vMW2GzhMVEnqzScpd0QPPsctue-KdPzOyQbIqWVp6mxPPcEN4-CiDNuaFs7FO3r-w",
-"Dropbox-API-Arg":JSON.stringify({
-path:"/xo240-logbook/trips/"+file.name,
-mode:"add",
-autorename:true
-}),
-"Content-Type":"application/octet-stream"
-},
-body:file
-})
-
-return response.json()
-
-}
 
 async function loadTripsFromServer(){
 
