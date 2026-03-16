@@ -436,30 +436,26 @@ async function saveTrip(){
 
 showToast("Saving trip…")
 
-let base64Photo = ""
-let filename = ""
+let base64Photo=""
+let filename=""
 
-const file = document.getElementById("photo")?.files[0]
+const file=document.getElementById("photo")?.files[0]
 
 if(file){
 
-base64Photo = await compressImage(file)
+base64Photo=await compressImage(file)
 
-const now = new Date()
+const now=new Date()
 
-filename =
-now.toISOString().split("T")[0] +
-"_trip_" +
-now.getHours() +
-"-" +
-now.getMinutes() +
-".jpg"
+filename=
+now.toISOString().split("T")[0]+
+"_trip_"+
+now.getHours()+"-"+
+now.getMinutes()+".jpg"
 
 }
 
-const trip = {
-
-type:"trip",
+const trip={
 
 date:document.getElementById("date").value,
 departure:document.getElementById("departure").value,
@@ -475,12 +471,10 @@ fuel:document.getElementById("fuel").value,
 engineStart:document.getElementById("engineStart").value,
 engineEnd:document.getElementById("engineEnd").value,
 
-photo: base64Photo,
-filename: filename
+photo:base64Photo,
+filename:filename
 
 }
-
-try{
 
 await fetch(API_URL,{
 method:"POST",
@@ -494,7 +488,6 @@ await loadTripsFromServer()
 
 showToast("✓ Trip saved")
 
-// reset form
 document.getElementById("route").value=""
 document.getElementById("participants").value=""
 document.getElementById("miles").value=""
@@ -507,11 +500,39 @@ setDefaultLogValues()
 
 showPage("trips")
 
-}catch(err){
+}
 
-console.error(err)
-showToast("Error saving trip")
+
+function compressImage(file,maxWidth=1200,quality=0.7){
+
+return new Promise(resolve=>{
+
+const img=new Image()
+const reader=new FileReader()
+
+reader.onload=e=>img.src=e.target.result
+
+img.onload=()=>{
+
+const canvas=document.createElement("canvas")
+
+const scale=maxWidth/img.width
+
+canvas.width=maxWidth
+canvas.height=img.height*scale
+
+const ctx=canvas.getContext("2d")
+
+ctx.drawImage(img,0,0,canvas.width,canvas.height)
+
+const base64=canvas.toDataURL("image/jpeg",quality)
+
+resolve(base64.split(",")[1])
 
 }
+
+reader.readAsDataURL(file)
+
+})
 
 }
