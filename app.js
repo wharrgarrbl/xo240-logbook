@@ -462,11 +462,15 @@ filename:filename
 }
 
 try{
-console.log("Trip payload:", trip)
+const formData = new FormData()
+
+Object.keys(trip).forEach(key=>{
+  formData.append(key, trip[key])
+})
+
 await fetch(API_URL,{
   method:"POST",
-  body:JSON.stringify(trip),
-  mode:"no-cors"
+  body:formData
 })
 
 await loadTripsFromServer()
