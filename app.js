@@ -246,7 +246,9 @@ if(t.photo){
 // convert dropbox path → public preview link
 const url = t.photo
 
-photoHtml = `<img src="${url}" style="width:100%;margin-top:10px;">`
+if(t.photo){
+photoHtml = `<img src="${t.photo}" style="width:100%;margin-top:10px;">`
+}
 
 }
 
