@@ -394,6 +394,14 @@ renderTrips()
 }
 function postToAppsScript(payload){
 
+const iframe = document.getElementById("hiddenFrame")
+
+return new Promise((resolve)=>{
+
+iframe.onload = () => {
+resolve()
+}
+
 const form = document.createElement("form")
 form.method = "POST"
 form.action = API_URL
@@ -411,6 +419,8 @@ document.body.appendChild(form)
 form.submit()
 
 form.remove()
+
+})
 
 }
 
@@ -466,18 +476,23 @@ filename: filename
 
 showToast("Saving trip…")
 
-postToAppsScript(trip)
-
-setTimeout(async () => {
+await postToAppsScript(trip)
 
 await loadTripsFromServer()
 
 showToast("✓ Trip saved")
 
+// reset form
+document.getElementById("route").value=""
+document.getElementById("participants").value=""
+document.getElementById("miles").value=""
+document.getElementById("fuel").value=""
+document.getElementById("arrival").value=""
+document.getElementById("engineEnd").value=""
+document.getElementById("photo").value=""
+
 setDefaultLogValues()
 
 showPage("trips")
-
-},1500)
 
 }
