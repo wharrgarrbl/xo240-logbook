@@ -398,26 +398,34 @@ const iframe = document.getElementById("hiddenFrame")
 
 return new Promise((resolve)=>{
 
-iframe.onload = () => {
+let resolved=false
+
+function done(){
+if(resolved) return
+resolved=true
 resolve()
 }
 
-const form = document.createElement("form")
-form.method = "POST"
-form.action = API_URL
-form.target = "hiddenFrame"
+// resolve when iframe finishes loading
+iframe.onload = done
 
-const input = document.createElement("input")
-input.type = "hidden"
-input.name = "payload"
-input.value = JSON.stringify(payload)
+// fallback in case onload doesn't fire
+setTimeout(done,1500)
+
+const form=document.createElement("form")
+form.method="POST"
+form.action=API_URL
+form.target="hiddenFrame"
+
+const input=document.createElement("input")
+input.type="hidden"
+input.name="payload"
+input.value=JSON.stringify(payload)
 
 form.appendChild(input)
-
 document.body.appendChild(form)
 
 form.submit()
-
 form.remove()
 
 })
