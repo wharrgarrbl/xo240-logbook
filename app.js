@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbw7XNlN4x5nR8l3obmh3t1tjlmYJOFrlOj7jpcW7KpaCheIvsHNjgGJu8M9i6Wzc18PZw/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbxbCvhXQp5L6xn0c8XeZUYFw8wValaKG22HvQQ05Jt-3FW4ELXFZDevlEmoDW60UWtzQQ/exec"
 
 function showToast(message, duration = 2000) {
 
