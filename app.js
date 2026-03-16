@@ -244,8 +244,7 @@ let photoHtml=""
 if(t.photo){
 
 // convert dropbox path → public preview link
-const url =
-"https://dl.dropboxusercontent.com" + t.photo
+const url = t.photo
 
 photoHtml = `<img src="${url}" style="width:100%;margin-top:10px;">`
 
