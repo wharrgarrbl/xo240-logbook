@@ -445,14 +445,15 @@ filename: filename
 
 showToast("Saving trip…", 10000)
 
-await fetch(API_URL,{
+fetch(API_URL,{
 method:"POST",
+mode:"no-cors",
 body:JSON.stringify(trip)
 })
-
+showToast("✓ Trip saved",2000)
 await loadTripsFromServer()
 
-showToast("✓ Trip saved",2000)
+
 
 // reset form
 document.getElementById("route").value=""
