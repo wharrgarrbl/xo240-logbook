@@ -462,7 +462,7 @@ filename:filename
 }
 
 try{
-
+console.log("Trip payload:", trip)
 await fetch(API_URL,{
   method:"POST",
   body:JSON.stringify(trip),
