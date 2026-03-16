@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxJVPE408eA81FYpeqwRJHPmNWW5b4yXM-M5J-L7FBi1FdDv36Hig9sCibzrJbWeDAHMw/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbxsUAOTWSrA4BCQPV5tS-xnw1VkaNbYqQtSOdBr1KUxFjkVilxXUIIfv8MT6t87ghojwA/exec"
 
 function showPage(id){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
