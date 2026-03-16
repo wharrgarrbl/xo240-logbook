@@ -392,28 +392,23 @@ renderTrips()
 }
 
 }
-function postToAppsScript(trip){
+function postToAppsScript(data){
 
 const form=document.createElement("form")
 form.method="POST"
 form.action=API_URL
 form.target="hiddenFrame"
 
-for(const key in trip){
-
+Object.keys(data).forEach(key=>{
 const input=document.createElement("input")
 input.type="hidden"
 input.name=key
-input.value=trip[key]
-
+input.value=data[key]
 form.appendChild(input)
-
-}
+})
 
 document.body.appendChild(form)
-
 form.submit()
-
 setTimeout(()=>form.remove(),500)
 
 }
