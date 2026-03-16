@@ -445,10 +445,11 @@ filename: filename
 
 showToast("Saving trip…", 10000)
 
-fetch(API_URL,{
-method:"POST",
-mode:"no-cors",
-body:JSON.stringify(trip)
+await fetch(API_URL, {
+  method: "POST",
+  body: new URLSearchParams({
+    data: JSON.stringify(trip)
+  })
 })
 showToast("✓ Trip saved",2000)
 await loadTripsFromServer()
