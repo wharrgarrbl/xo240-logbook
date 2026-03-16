@@ -397,6 +397,7 @@ function postToAppsScript(payload){
 const form = document.createElement("form")
 form.method = "POST"
 form.action = API_URL
+form.target = "hiddenFrame"
 
 const input = document.createElement("input")
 input.type = "hidden"
@@ -408,6 +409,8 @@ form.appendChild(input)
 document.body.appendChild(form)
 
 form.submit()
+
+form.remove()
 
 }
 
@@ -461,28 +464,20 @@ filename: filename
 
 }
 
-showToast("Saving trip…", 10000)
+showToast("Saving trip…")
 
 postToAppsScript(trip)
-showToast("✓ Trip saved",2000)
+
+setTimeout(async () => {
+
 await loadTripsFromServer()
 
+showToast("✓ Trip saved")
 
-
-// reset form
-document.getElementById("route").value=""
-document.getElementById("participants").value=""
-document.getElementById("miles").value=""
-document.getElementById("fuel").value=""
-document.getElementById("arrival").value=""
-document.getElementById("engineEnd").value=""
-
-// clear photo
-document.getElementById("photo").value=""
-
-// reset defaults
 setDefaultLogValues()
 
 showPage("trips")
+
+},1500)
 
 }
