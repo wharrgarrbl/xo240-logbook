@@ -434,18 +434,16 @@ form.remove()
 
 async function saveTrip(){
 
-const file = document.getElementById("photo").files[0]
+showToast("Saving trip…")
 
 let base64Photo = ""
 let filename = ""
 
+const file = document.getElementById("photo")?.files[0]
+
 if(file){
 
-base64Photo = await new Promise(resolve=>{
-fileToBase64(file,result=>{
-resolve(result.split(",")[1])
-})
-})
+base64Photo = await compressImage(file)
 
 const now = new Date()
 
@@ -482,9 +480,15 @@ filename: filename
 
 }
 
-showToast("Saving trip…")
+try{
 
-await postToAppsScript(trip)
+await fetch(API_URL,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(trip)
+})
 
 await loadTripsFromServer()
 
@@ -502,5 +506,12 @@ document.getElementById("photo").value=""
 setDefaultLogValues()
 
 showPage("trips")
+
+}catch(err){
+
+console.error(err)
+showToast("Error saving trip")
+
+}
 
 }
